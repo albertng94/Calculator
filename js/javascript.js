@@ -1,11 +1,23 @@
-console.log(add(8, 9, 30, -10));
-console.log(subtract(10, 2));
-console.log(multiply(3, 4));
-console.log(divide(4, 2));
+let number1 = 4;
+let number2 = 2;
+let operator = "+";
 
 
+let result = [];
 
 
+function operate() {
+    if (operator === "+") {
+        result.push(add(number1, number2));
+    } else if (operator === "-") {
+        result.push(subtract(number1, number2));
+    } else if (operator === "x") {
+        result.push(multiply(number1, number2)); 
+    } else if (operator === "/") {
+        result.push(divide(number1, number2));
+    }
+    return result[result.length-1];
+}
 
 function add(...args) {
     let sum = 0;
