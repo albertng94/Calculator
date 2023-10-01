@@ -40,12 +40,17 @@ h2 {
     outline: solid 1px lightgray;
 }
 
-.calculation {
+#calculation {
     height: 50%;
+    font-size: 1em;
+    display: flex;
+    justify-content: end;
 }
 
-.result {
+#result {
     height: 50%;
+    display: flex;
+    justify-content: end;
 }
 
 .buttons-div {
@@ -54,7 +59,7 @@ h2 {
     border-radius: 5px;
     outline: solid 1px lightgray;
     display: grid;
-    grid-template: 1fr 1fr 1fr 1fr 1fr / 1fr 1fr 1fr 1fr 1fr;
+    grid-template: 1fr 1fr 1fr 1fr 1fr / 1fr 1fr 1fr 1fr;
     gap: 1.5%;
     padding: 1.5%;
 }
@@ -69,15 +74,9 @@ h2 {
     cursor: pointer;
 }
 
-.undo {
-    grid-area: 1 / 2 / 2 / 4;
+#ac {
+    grid-area: 1 / 1 / 2 / 3;
 }
 
-.erase {
-    grid-area: 1 / 4 / 2 / 6;
-}
 
-.equals {
-    grid-area: 4 / 5 / 6 / 6;
-}
 
