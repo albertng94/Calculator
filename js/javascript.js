@@ -4,6 +4,7 @@ let number2Arr = [];
 let operator = [];
 let displayValue = [];
 let resultsArr = [];
+let resultsArrToDisp = [];
 let result = [];
 
 const buttons = document.querySelectorAll("button");
@@ -39,24 +40,29 @@ function execute() {
             else if (button.id === "=" && number2Arr[0]) {
                 if (result[0]) {
                     let number1 = resultsArr[resultsArr.length-1];
-                    let number2 = Number(number2Arr.join(""));
+                    let number2 = number2Arr.join("");
                     let oper = operator[0];
                     result.splice(0, result.length);
-                    operate(number1, number2, oper);
-                    displayValue = `${number1} ${oper} ${number2} = ${resultsArr[resultsArr.length-1]}`; 
+                    operate(Number(number1), Number(number2), oper);
+                    oper = operator[0] === "*" ? "x" : operator[0];
+                    number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                    displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
                     displayDiv.textContent = `${displayValue}`;
-                    resultDiv.textContent = `${resultsArr[resultsArr.length-1]}`;
+                    resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]}`;
                     number1Arr.splice(0, number1Arr.length);  
                     number2Arr.splice(0, number2Arr.length);
 
                 } else {
-                    let number1 = Number(number1Arr.join(""));
-                    let number2 = Number(number2Arr.join(""));
+                    let number1 = number1Arr.join("");
+                    let number2 = number2Arr.join("");
                     let oper = operator[0];
-                    operate(number1, number2, oper);
-                    displayValue = `${number1} ${oper} ${number2} = ${resultsArr[resultsArr.length-1]}`; 
+                    operate(Number(number1), Number(number2), oper);
+                    oper = operator[0] === "*" ? "x" : operator[0];
+                    number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                    number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                    displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
                     displayDiv.textContent = `${displayValue}`;
-                    resultDiv.textContent = `${resultsArr[resultsArr.length-1]}`;
+                    resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]}`;
                     number1Arr.splice(0, number1Arr.length);  
                     number2Arr.splice(0, number2Arr.length); 
                 }
@@ -72,22 +78,26 @@ function execute() {
                 if (result[0]) {
                     if (number2Arr[0]) {
                         let number1 = resultsArr[resultsArr.length-1];
-                        let number2 = Number(number2Arr.join(""));
+                        let number2 = number2Arr.join("");
                         let oper = operator[0];
                         result.splice(0, result.length);
-                        operate(number1, number2, oper);
-                        displayValue = `${number1} ${oper} ${number2} = ${resultsArr[resultsArr.length-1]}`;  
+                        operate(Number(number1), Number(number2), oper);
+                        oper = operator[0] === "*" ? "x" : operator[0];
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                        displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`;  
                         displayDiv.textContent = `${displayValue}`;
                         operator.splice(0, 1, button.id);
-                        oper = operator[0];
-                        resultDiv.textContent = `${resultsArr[resultsArr.length-1]} ${oper}`;
+                        oper = operator[0] === "*" ? "x" : operator[0];
+                        resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper}`;
                         number1Arr.splice(0, number1Arr.length);  
                         number2Arr.splice(0, number2Arr.length);                    
                     } else {
                         number1Arr.push(result[0]);
                         operator.splice(0, 1, button.id);
-                        let number1 = Number(number1Arr.join(""));
-                        let oper = operator[0];
+                        let number1 = number1Arr.join("");
+                        let oper = operator[0] === "*" ? "x" : operator[0];
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                         result.splice(0, 1);
                         displayValue = `${number1} ${oper}`;
                         resultDiv.textContent = `${displayValue}`;
@@ -96,21 +106,25 @@ function execute() {
 
                 else if (operator[0]) {
                     if (number1Arr[0] && number2Arr[0]) {
-                        let number1 = Number(number1Arr.join(""));
-                        let number2 = Number(number2Arr.join(""));
+                        let number1 = number1Arr.join("");
+                        let number2 = number2Arr.join("");
                         let oper = operator[0];
-                        operate(number1, number2, oper);
-                        displayValue = `${number1} ${oper} ${number2} = ${resultsArr[resultsArr.length-1]}`;  
+                        operate(Number(number1), Number(number2), oper);
+                        oper = operator[0] === "*" ? "x" : operator[0];
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                        displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`;  
                         displayDiv.textContent = `${displayValue}`;
                         operator.splice(0, 1, button.id);
-                        oper = operator[0];
-                        resultDiv.textContent = `${resultsArr[resultsArr.length-1]} ${oper}`;
+                        oper = operator[0] === "*" ? "x" : operator[0];
+                        resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper}`;
                         number1Arr.splice(0, number1Arr.length);  
                         number2Arr.splice(0, number2Arr.length);   
                     } else if (number1Arr[0]) {
                         operator.splice(0, 1, button.id);
-                        let number1 = Number(number1Arr.join(""));
-                        let oper = operator[0];
+                        let number1 = number1Arr.join("");
+                        let oper = operator[0] === "*" ? "x" : operator[0];
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                         displayValue = `${number1} ${oper}`;
                         resultDiv.textContent = `${displayValue}`;
                     }
@@ -118,8 +132,9 @@ function execute() {
 
                 else if (number1Arr[0]) {
                     operator.push(button.id);
-                    let number1 = Number(number1Arr.join(""));
-                    let oper = operator[0];
+                    let number1 = number1Arr.join("");
+                    let oper = operator[0] === "*" ? "x" : operator[0];
+                    number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                     displayValue = `${number1} ${oper}`;
                     resultDiv.textContent = `${displayValue}`;
                 }
@@ -134,15 +149,18 @@ function execute() {
                 if (operator[0]) {
                     if (result[0]) {
                         number2Arr.push(button.id);
-                        let number2 = Number(number2Arr.join(""));
-                        let oper = operator[0];
-                        displayValue = `${resultsArr[resultsArr.length-1]} ${oper} ${number2}`;
+                        let number2 = number2Arr.join("");
+                        let oper = operator[0] === "*" ? "x" : operator[0];
+                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                        displayValue = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper} ${number2}`;
                         resultDiv.textContent = `${displayValue}`;
                     } else {
-                        number2Arr.push(Number(button.id));
-                        let number1 = Number(number1Arr.join(""));
-                        let number2 = Number(number2Arr.join(""));
-                        let oper = operator[0];
+                        number2Arr.push(button.id);
+                        let number1 = number1Arr.join("");
+                        let number2 = number2Arr.join("");
+                        let oper = operator[0] === "*" ? "x" : operator[0];
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
                         displayValue = `${number1} ${oper} ${number2}`;
                         resultDiv.textContent = `${displayValue}`;
                     }
@@ -151,13 +169,15 @@ function execute() {
                     if (result[0]) {
                         number1Arr.splice(0, number1Arr.length);
                         number1Arr.push(button.id);
-                        let number1 = Number(number1Arr.join(""));
+                        let number1 = number1Arr.join("");
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                         displayValue = `${number1}`;
                         resultDiv.textContent = `${displayValue}`;
                         result.splice(0, 1);
                     } else {
-                        number1Arr.push(Number(button.id));
-                        let number1 = Number(number1Arr.join(""));
+                        number1Arr.push(button.id);
+                        let number1 = number1Arr.join("");
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                         displayValue = `${number1}`;
                         resultDiv.textContent = `${displayValue}`;
                     }
@@ -170,21 +190,32 @@ function execute() {
 
 
 
-//Function "operate" executes the different operation functions (add, subtract, multiply or divide) based on the arguments values (a number1, a number2, and an operator). Depending on the value of the operator, it will choose which operation function to process.
+//Function "operate" executes the different operation functions (add, subtract, multiply or divide) based on the arguments values (a number1, a number2, and an operator). Depending on the value of the operator, it will choose which operation function to process. It pushes the results to different arrays to be later used by function "execute".
 function operate(num1, num2, op) {
+    let solution;
+
     if (op === "+") {
-        resultsArr.push(add(num1, num2));
-        result.push(add(num1, num2));
+        solution = (((add(num1, num2)).toFixed(2)).includes(".")) ? (((add(num1, num2)).toFixed(2)).replace(".", ",")) : ((add(num1, num2)).toFixed(2));
+        resultsArrToDisp.push(solution);
+        resultsArr.push((add(num1, num2)).toFixed(2));
+        result.push((add(num1, num2)).toFixed(2));
     } else if (op === "-") {
-        resultsArr.push(subtract(num1, num2));
-        result.push(subtract(num1, num2));
+        solution = (((subtract(num1, num2)).toFixed(2)).includes(".")) ? (((subtract(num1, num2)).toFixed(2)).replace(".", ",")) : ((subtract(num1, num2)).toFixed(2));
+        resultsArrToDisp.push(solution);
+        resultsArr.push((subtract(num1, num2)).toFixed(2));
+        result.push((subtract(num1, num2)).toFixed(2));
     } else if (op === "*") {
-        resultsArr.push(multiply(num1, num2)); 
-        result.push(multiply(num1, num2));
+        solution = (((multiply(num1, num2)).toFixed(2)).includes(".")) ? (((multiply(num1, num2)).toFixed(2)).replace(".", ",")) : ((multiply(num1, num2)).toFixed(2));
+        resultsArrToDisp.push(solution);
+        resultsArr.push((multiply(num1, num2)).toFixed(2));
+        result.push((multiply(num1, num2)).toFixed(2));
     } else if (op === "/") {
-        resultsArr.push(divide(num1, num2));
-        result.push(divide(num1, num2));
+        solution = (((divide(num1, num2)).toFixed(2)).includes(".")) ? (((divide(num1, num2)).toFixed(2)).replace(".", ",")) : ((divide(num1, num2)).toFixed(2));
+        resultsArrToDisp.push(solution);
+        resultsArr.push((divide(num1, num2)).toFixed(2));
+        result.push((divide(num1, num2)).toFixed(2));
     }
+    console.log(resultsArrToDisp[resultsArrToDisp.length-1]);
     console.log(resultsArr[resultsArr.length-1]);
     console.log(result[result.length-1]);
 }
