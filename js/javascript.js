@@ -49,9 +49,17 @@ function execute() {
                     oper = operator[0] === "*" ? "x" : operator[0];
                     number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                     number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
-                    displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
-                    displayDiv.textContent = `${displayValue}`;
-                    resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]}`;
+                    if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
+                        resultDiv.textContent = "Error. Cannot divide by zero.";
+                        operator.splice(0, operator.length);
+                        resultsArrToDisp.splice(0, resultsArrToDisp.length);
+                        resultsArr.splice(0, resultsArr.length);
+                        result.splice(0, result.length);
+                    } else {
+                        displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
+                        displayDiv.textContent = `${displayValue}`;
+                        resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]}`;
+                    }
                     number1Arr.splice(0, number1Arr.length);  
                     number2Arr.splice(0, number2Arr.length);
 
@@ -63,9 +71,17 @@ function execute() {
                     oper = operator[0] === "*" ? "x" : operator[0];
                     number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                     number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
-                    displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
-                    displayDiv.textContent = `${displayValue}`;
-                    resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]}`;
+                    if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
+                        resultDiv.textContent = "Error. Cannot divide by zero.";
+                        operator.splice(0, operator.length);
+                        resultsArrToDisp.splice(0, resultsArrToDisp.length);
+                        resultsArr.splice(0, resultsArr.length);
+                        result.splice(0, result.length);
+                    } else {
+                        displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
+                        displayDiv.textContent = `${displayValue}`;
+                        resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]}`;
+                    }
                     number1Arr.splice(0, number1Arr.length);  
                     number2Arr.splice(0, number2Arr.length); 
                 }
@@ -88,11 +104,19 @@ function execute() {
                         oper = operator[0] === "*" ? "x" : operator[0];
                         number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                         number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
-                        displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`;  
-                        displayDiv.textContent = `${displayValue}`;
-                        operator.splice(0, 1, button.id);
-                        oper = operator[0] === "*" ? "x" : operator[0];
-                        resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper}`;
+                        if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
+                            resultDiv.textContent = "Error. Cannot divide by zero.";
+                            operator.splice(0, operator.length);
+                            resultsArrToDisp.splice(0, resultsArrToDisp.length);
+                            resultsArr.splice(0, resultsArr.length);
+                            result.splice(0, result.length);
+                        } else {
+                            displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`;  
+                            displayDiv.textContent = `${displayValue}`;
+                            operator.splice(0, 1, button.id);
+                            oper = operator[0] === "*" ? "x" : operator[0];
+                            resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper}`;
+                        }
                         number1Arr.splice(0, number1Arr.length);  
                         number2Arr.splice(0, number2Arr.length);                    
                     } else {
@@ -116,11 +140,20 @@ function execute() {
                         oper = operator[0] === "*" ? "x" : operator[0];
                         number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                         number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
-                        displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`;  
-                        displayDiv.textContent = `${displayValue}`;
-                        operator.splice(0, 1, button.id);
-                        oper = operator[0] === "*" ? "x" : operator[0];
-                        resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper}`;
+                        if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
+                            resultDiv.textContent = "Error. Cannot divide by zero.";
+                            operator.splice(0, operator.length);
+                            resultsArrToDisp.splice(0, resultsArrToDisp.length);
+                            resultsArr.splice(0, resultsArr.length);
+                            result.splice(0, result.length);
+                        } else {
+                            displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`;  
+                            displayDiv.textContent = `${displayValue}`;
+                            operator.splice(0, 1, button.id);
+                            oper = operator[0] === "*" ? "x" : operator[0];
+                            resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper}`;
+                        }
+                        
                         number1Arr.splice(0, number1Arr.length);  
                         number2Arr.splice(0, number2Arr.length);   
                     } else if (number1Arr[0]) {
@@ -325,19 +358,24 @@ function operate(num1, num2, op) {
             result.push(multiply(num1, num2));
         }
     } else if (op === "/") {
-        solution = `${divide(num1, num2)}`;
-        if (solution.includes(".") === true) {
-            solution = Number(solution);
-            solution = (solution.toFixed(2)).toString();
-            solution = solution.replace(".", ",");
+        if (num2 === 0) {
+            solution = undefined;
             resultsArrToDisp.push(solution);
-            resultsArr.push(divide(num1, num2).toFixed(2));
-            result.push(divide(num1, num2).toFixed(2));
         } else {
-            solution = Number(solution);
-            resultsArrToDisp.push(solution);
-            resultsArr.push(divide(num1, num2));
-            result.push(divide(num1, num2));
+            solution = `${divide(num1, num2)}`;
+            if (solution.includes(".") === true) {
+                solution = Number(solution);
+                solution = (solution.toFixed(2)).toString();
+                solution = solution.replace(".", ",");
+                resultsArrToDisp.push(solution);
+                resultsArr.push(divide(num1, num2).toFixed(2));
+                result.push(divide(num1, num2).toFixed(2));
+            } else {
+                solution = Number(solution);
+                resultsArrToDisp.push(solution);
+                resultsArr.push(divide(num1, num2));
+                result.push(divide(num1, num2));
+            }
         }
     }
     console.log(resultsArrToDisp[resultsArrToDisp.length-1]);
