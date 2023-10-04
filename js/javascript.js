@@ -7,11 +7,12 @@ let resultsArr = [];
 let resultsArrToDisp = [];
 let result = [];
 
+
 const buttons = document.querySelectorAll("button");
 const displayDiv = document.getElementById("calculation");
 const resultDiv = document.getElementById("result");
 
-//Execution of main function "execute".
+
 execute();
 
 
@@ -21,15 +22,16 @@ console.log(number2Arr);
 console.log(displayValue);
 console.log(result);
 
+
 //Function execute is called whenever the calculator buttons are clicked by the user. The result will vary according to the pressed button.
 function execute() {
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
-            //If AC button is clicked, reset all variables value and clear the display divs.
             if (button.id === "ac") {
                 number1Arr.splice(0, number1Arr.length);
                 number2Arr.splice(0 ,number2Arr.length);
                 operator.splice(0, operator.length);
+                resultsArrToDisp.splice(0, resultsArrToDisp.length);
                 resultsArr.splice(0, resultsArr.length);
                 result.splice(0, result.length);
                 displayDiv.textContent = "";
@@ -45,6 +47,7 @@ function execute() {
                     result.splice(0, result.length);
                     operate(Number(number1), Number(number2), oper);
                     oper = operator[0] === "*" ? "x" : operator[0];
+                    number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                     number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
                     displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
                     displayDiv.textContent = `${displayValue}`;
@@ -148,38 +151,120 @@ function execute() {
             else if (button.classList.contains("num")) {
                 if (operator[0]) {
                     if (result[0]) {
-                        number2Arr.push(button.id);
-                        let number2 = number2Arr.join("");
-                        let oper = operator[0] === "*" ? "x" : operator[0];
-                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
-                        displayValue = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper} ${number2}`;
-                        resultDiv.textContent = `${displayValue}`;
+                        if (button.id === "negative") {
+                            if (number2Arr.includes("-")) {
+                                number2Arr.splice(0, 1);
+                                let number2 = number2Arr.join("");
+                                let oper = operator[0] === "*" ? "x" : operator[0];
+                                number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                                displayValue = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper} ${number2}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            } else {
+                                number2Arr.unshift("-");
+                                let number2 = number2Arr.join("");
+                                let oper = operator[0] === "*" ? "x" : operator[0];
+                                number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                                displayValue = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper} ${number2}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            }
+                            
+                        } else {
+                            number2Arr.push(button.id);
+                            let number2 = number2Arr.join("");
+                            let oper = operator[0] === "*" ? "x" : operator[0];
+                            number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                            displayValue = `${resultsArrToDisp[resultsArrToDisp.length-1]} ${oper} ${number2}`;
+                            resultDiv.textContent = `${displayValue}`;
+                        }
                     } else {
-                        number2Arr.push(button.id);
-                        let number1 = number1Arr.join("");
-                        let number2 = number2Arr.join("");
-                        let oper = operator[0] === "*" ? "x" : operator[0];
-                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
-                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
-                        displayValue = `${number1} ${oper} ${number2}`;
-                        resultDiv.textContent = `${displayValue}`;
+                        if (button.id === "negative") {
+                            if (number2Arr.includes("-")) {
+                                number2Arr.splice(0, 1);
+                                let number1 = number1Arr.join("");
+                                let number2 = number2Arr.join("");
+                                let oper = operator[0] === "*" ? "x" : operator[0];
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                                displayValue = `${number1} ${oper} ${number2}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            } else {
+                                number2Arr.unshift("-");
+                                let number1 = number1Arr.join("");
+                                let number2 = number2Arr.join("");
+                                let oper = operator[0] === "*" ? "x" : operator[0];
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                                displayValue = `${number1} ${oper} ${number2}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            }
+                        } else {
+                            number2Arr.push(button.id);
+                            let number1 = number1Arr.join("");
+                            let number2 = number2Arr.join("");
+                            let oper = operator[0] === "*" ? "x" : operator[0];
+                            number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                            number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                            displayValue = `${number1} ${oper} ${number2}`;
+                            resultDiv.textContent = `${displayValue}`;
+                        }
                     }
                     
                 } else {
                     if (result[0]) {
-                        number1Arr.splice(0, number1Arr.length);
-                        number1Arr.push(button.id);
-                        let number1 = number1Arr.join("");
-                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
-                        displayValue = `${number1}`;
-                        resultDiv.textContent = `${displayValue}`;
-                        result.splice(0, 1);
+                        if (button.id === "negative" && number1Arr[0]) {
+                            if (number1Arr.includes("-")) {
+                                number1Arr.splice(0, 1);
+                                let number1 = number1Arr.join("");
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                displayValue = `${number1}`;
+                                resultDiv.textContent = `${displayValue}`;
+                                result.splice(0, 1);
+                            } else {
+                                number1Arr.unshift("-");
+                                let number1 = number1Arr.join("");
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                displayValue = `${number1}`;
+                                resultDiv.textContent = `${displayValue}`;
+                                result.splice(0, 1);
+                            }
+                        } else {
+                            number1Arr.push(button.id);
+                            let number1 = number1Arr.join("");
+                            number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                            displayValue = `${number1}`;
+                            resultDiv.textContent = `${displayValue}`;
+                            result.splice(0, 1);
+                        }
                     } else {
-                        number1Arr.push(button.id);
-                        let number1 = number1Arr.join("");
-                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
-                        displayValue = `${number1}`;
-                        resultDiv.textContent = `${displayValue}`;
+                        if (button.id === "negative" && number1Arr[0]) {
+                            if (number1Arr.includes("-")) {
+                                number1Arr.splice(0, 1);
+                                let number1 = number1Arr.join("");
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                displayValue = `${number1}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            } else {
+                                number1Arr.unshift("-");
+                                let number1 = number1Arr.join("");
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                displayValue = `${number1}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            }
+                        } else {
+                            if (button.id === "negative") {
+                                number1Arr.push("-");
+                                let number1 = number1Arr.join("");
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                displayValue = `${number1}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            } else {
+                                number1Arr.push(button.id);
+                                let number1 = number1Arr.join("");
+                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                displayValue = `${number1}`;
+                                resultDiv.textContent = `${displayValue}`;
+                            }
+                        }
                     }
                 }
             
@@ -195,29 +280,70 @@ function operate(num1, num2, op) {
     let solution;
 
     if (op === "+") {
-        solution = (((add(num1, num2)).toFixed(2)).includes(".")) ? (((add(num1, num2)).toFixed(2)).replace(".", ",")) : ((add(num1, num2)).toFixed(2));
-        resultsArrToDisp.push(solution);
-        resultsArr.push((add(num1, num2)).toFixed(2));
-        result.push((add(num1, num2)).toFixed(2));
+        solution = `${add(num1, num2)}`;
+        if (solution.includes(".") === true) {
+            solution = Number(solution);
+            solution = (solution.toFixed(2)).toString();
+            solution = solution.replace(".", ",");
+            resultsArrToDisp.push(solution);
+            resultsArr.push(add(num1, num2).toFixed(2));
+            result.push(add(num1, num2).toFixed(2));
+        } else {
+            solution = Number(solution);
+            resultsArrToDisp.push(solution);
+            resultsArr.push(add(num1, num2));
+            result.push(add(num1, num2));
+        }
     } else if (op === "-") {
-        solution = (((subtract(num1, num2)).toFixed(2)).includes(".")) ? (((subtract(num1, num2)).toFixed(2)).replace(".", ",")) : ((subtract(num1, num2)).toFixed(2));
-        resultsArrToDisp.push(solution);
-        resultsArr.push((subtract(num1, num2)).toFixed(2));
-        result.push((subtract(num1, num2)).toFixed(2));
+        solution = `${subtract(num1, num2)}`;
+        if (solution.includes(".") === true) {
+            solution = Number(solution);
+            solution = (solution.toFixed(2)).toString();
+            solution = solution.replace(".", ",");
+            resultsArrToDisp.push(solution);
+            resultsArr.push(subtract(num1, num2).toFixed(2));
+            result.push(subtract(num1, num2).toFixed(2));
+        } else {
+            solution = Number(solution);
+            resultsArrToDisp.push(solution);
+            resultsArr.push(subtract(num1, num2));
+            result.push(subtract(num1, num2));
+        }
     } else if (op === "*") {
-        solution = (((multiply(num1, num2)).toFixed(2)).includes(".")) ? (((multiply(num1, num2)).toFixed(2)).replace(".", ",")) : ((multiply(num1, num2)).toFixed(2));
-        resultsArrToDisp.push(solution);
-        resultsArr.push((multiply(num1, num2)).toFixed(2));
-        result.push((multiply(num1, num2)).toFixed(2));
+        solution = `${multiply(num1, num2)}`;
+        if (solution.includes(".") === true) {
+            solution = Number(solution);
+            solution = (solution.toFixed(2)).toString();
+            solution = solution.replace(".", ",");
+            resultsArrToDisp.push(solution);
+            resultsArr.push(multiply(num1, num2).toFixed(2));
+            result.push(multiply(num1, num2).toFixed(2));
+        } else {
+            solution = Number(solution);
+            resultsArrToDisp.push(solution);
+            resultsArr.push(multiply(num1, num2));
+            result.push(multiply(num1, num2));
+        }
     } else if (op === "/") {
-        solution = (((divide(num1, num2)).toFixed(2)).includes(".")) ? (((divide(num1, num2)).toFixed(2)).replace(".", ",")) : ((divide(num1, num2)).toFixed(2));
-        resultsArrToDisp.push(solution);
-        resultsArr.push((divide(num1, num2)).toFixed(2));
-        result.push((divide(num1, num2)).toFixed(2));
+        solution = `${divide(num1, num2)}`;
+        if (solution.includes(".") === true) {
+            solution = Number(solution);
+            solution = (solution.toFixed(2)).toString();
+            solution = solution.replace(".", ",");
+            resultsArrToDisp.push(solution);
+            resultsArr.push(divide(num1, num2).toFixed(2));
+            result.push(divide(num1, num2).toFixed(2));
+        } else {
+            solution = Number(solution);
+            resultsArrToDisp.push(solution);
+            resultsArr.push(divide(num1, num2));
+            result.push(divide(num1, num2));
+        }
     }
     console.log(resultsArrToDisp[resultsArrToDisp.length-1]);
     console.log(resultsArr[resultsArr.length-1]);
     console.log(result[result.length-1]);
+    console.log(solution);
 }
 
 
@@ -243,3 +369,4 @@ function divide(...args) {
     let divide = args.reduce((final, current) => final / current);
     return divide;
 }
+
