@@ -21,6 +21,8 @@ console.log(operator);
 console.log(number2Arr);
 console.log(displayValue);
 console.log(result);
+console.log(resultsArr);
+console.log(resultsArrToDisp);
 
 
 //Function execute is called whenever the calculator buttons are clicked by the user. The result will vary according to the pressed button.
@@ -37,7 +39,52 @@ function execute() {
                 displayDiv.textContent = "";
                 resultDiv.textContent = "";
             }
-            
+
+            else if (button.id === "erase") {
+                if (number2Arr[0]) {
+                    number2Arr.splice(-1, 1);
+                    let number1 = number1Arr.join("");
+                    let number2 = number2Arr.join("");
+                    let oper = operator[0] === "*" ? "x" : operator[0]
+                    number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                    number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                    displayValue = `${number1} ${oper} ${number2}`;
+                    resultDiv.textContent = `${displayValue}`;
+                    displayValue = `${number1} ${oper} ${number2}`;
+                    resultDiv.textContent = `${displayValue}`;
+                } 
+                
+                else if (operator[0]) {
+                    if (result [0]) {
+                        operator.splice(0, 1);
+                        number1Arr.push(result[0]);
+                        let number1 = number1Arr.join("");
+                        displayValue = `${number1}`;
+                        resultDiv.textContent = `${displayValue}`;
+                    } else {
+                        operator.splice(-1, 1);
+                        let number1 = number1Arr.join("");
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                        displayValue = `${number1}`;
+                        resultDiv.textContent = `${displayValue}`;
+                    }
+                }
+                            
+                else { 
+                    if (result[0]) {
+                        result.splice(0, 1);
+                        number1Arr.splice(0, number1Arr.length);
+                        resultDiv.textContent = "";
+                    } else {
+                        number1Arr.splice(-1, 1);
+                        let number1 = number1Arr.join("");
+                        displayValue = `${number1}`;
+                        resultDiv.textContent = `${displayValue}`;
+                    }
+                }
+            }
+        
+
             //If "=" button is clicked and number2Arr has a value, execute "operate" taking into account the values accumulated in arrays numberArr1, operator, and numberArr2. Push the whole operation to the displayDiv and the result to the resultDIv
             else if (button.id === "=" && number2Arr[0]) {
                 if (result[0]) {
@@ -50,7 +97,7 @@ function execute() {
                     number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                     number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
                     if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
-                        resultDiv.textContent = "Error. Cannot divide by zero.";
+                        resultDiv.textContent = "Error: cannot divide by zero.";
                         operator.splice(0, operator.length);
                         resultsArrToDisp.splice(0, resultsArrToDisp.length);
                         resultsArr.splice(0, resultsArr.length);
@@ -62,6 +109,7 @@ function execute() {
                     }
                     number1Arr.splice(0, number1Arr.length);  
                     number2Arr.splice(0, number2Arr.length);
+                    console.log(displayDiv.value);
 
                 } else {
                     let number1 = number1Arr.join("");
@@ -72,7 +120,7 @@ function execute() {
                     number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                     number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
                     if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
-                        resultDiv.textContent = "Error. Cannot divide by zero.";
+                        resultDiv.textContent = "Error: cannot divide by zero.";
                         operator.splice(0, operator.length);
                         resultsArrToDisp.splice(0, resultsArrToDisp.length);
                         resultsArr.splice(0, resultsArr.length);
@@ -84,6 +132,7 @@ function execute() {
                     }
                     number1Arr.splice(0, number1Arr.length);  
                     number2Arr.splice(0, number2Arr.length); 
+                    operator.splice(0, operator.length);
                 }
             } 
             
@@ -102,10 +151,15 @@ function execute() {
                         result.splice(0, result.length);
                         operate(Number(number1), Number(number2), oper);
                         oper = operator[0] === "*" ? "x" : operator[0];
-                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                        if (number1.includes(".") === true) {
+                            number1 = Number(number1);
+                            number1 = (number1.toFixed(2)).toString();
+                            number1 = number1.replace(".", ","); 
+                        };
                         number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                        
                         if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
-                            resultDiv.textContent = "Error. Cannot divide by zero.";
+                            resultDiv.textContent = "Error: cannot divide by zero.";
                             operator.splice(0, operator.length);
                             resultsArrToDisp.splice(0, resultsArrToDisp.length);
                             resultsArr.splice(0, resultsArr.length);
@@ -141,7 +195,7 @@ function execute() {
                         number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
                         number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
                         if (resultsArrToDisp[resultsArrToDisp.length-1] === undefined) {
-                            resultDiv.textContent = "Error. Cannot divide by zero.";
+                            resultDiv.textContent = "Error: cannot divide by zero.";
                             operator.splice(0, operator.length);
                             resultsArrToDisp.splice(0, resultsArrToDisp.length);
                             resultsArr.splice(0, resultsArr.length);
@@ -408,3 +462,107 @@ function divide(...args) {
     return divide;
 }
 
+
+
+
+
+// In case erase function would go ack to previous results and operations, this code would be a starter (located inside erase (operate[0] condition)):
+
+// if (result[0]) {
+                        // if (resultDiv.textContent.includes(`${operator[0]}`)) {
+                        //     operator.splice(0, 1);
+                        //     let number1 = resultsArrToDisp[resultsArrToDisp.length-1];
+                        //     displayValue = `${number1}`;
+                        //     resultDiv.textContent = `${displayValue}`;
+                        // } else {
+                        //     resultsArrToDisp.splice(-1, 1);
+                        //     resultsArr.splice(-1, 1);
+                        //     let prevOperation = (displayDiv.textContent).split("");
+                        //     console.log(prevOperation);
+                        //     if (prevOperation.includes("+")) {
+                        //         let index1 = prevOperation.indexOf("+");
+                        //         for (let i = 0; i < index1; i++) {
+                        //             if (prevOperation[i] !== " ") {
+                        //                 number1Arr.push(prevOperation[i]);
+                        //             }
+                        //         }
+                        //         let index2 = prevOperation.indexOf("=");
+                        //         for (let j = index2-1; j > index1; j--) {
+                        //             if (prevOperation[j] !== " ") {
+                        //                 number2Arr.unshift(prevOperation[j]);
+                        //             }
+                        //         }
+                        //         result.splice(0, 1);
+                        //         let number1 = number1Arr.join("");
+                        //         let number2 = number2Arr.join("");
+                        //         let oper = operator[0];
+                        //         displayValue = `${number1} ${oper} ${number2}`;
+                        //         displayDiv.textContent = "";
+                        //         resultDiv.textContent = `${displayValue}`;
+
+                        //     } else if (prevOperation.includes("-")) {
+                        //         let index1 = prevOperation.findIndex((element) => element === " ");
+                        //         console.log(index1);
+                        //         for (let i = 0; i < (index1+1); i++) {
+                        //             if (prevOperation[i] !== " ") {
+                        //                 number1Arr.push(prevOperation[i]);
+                        //             }
+                        //         }
+                        //         let index2 = prevOperation.indexOf("=");
+                        //         for (let j = index2-1; j > index1+1; j--) {
+                        //             if (prevOperation[j] !== " ") {
+                        //                 number2Arr.unshift(prevOperation[j]);
+                        //             }
+                        //         }
+                        //         result.splice(0, 1);
+                        //         let number1 = number1Arr.join("");
+                        //         let number2 = number2Arr.join("");
+                        //         let oper = operator[0];
+                        //         displayValue = `${number1} ${oper} ${number2}`;
+                        //         displayDiv.textContent = "";
+                        //         resultDiv.textContent = `${displayValue}`;
+
+                        //     } else if (prevOperation.includes("x")) {
+                        //         let index1 = prevOperation.indexOf("x");
+                        //         for (let i = 0; i < index1; i++) {
+                        //             if (prevOperation[i] !== " ") {
+                        //                 number1Arr.push(prevOperation[i]);
+                        //             }
+                        //         }
+                        //         let index2 = prevOperation.indexOf("=");
+                        //         for (let j = index2-1; j > index1; j--) {
+                        //             if (prevOperation[j] !== " ") {
+                        //                 number2Arr.unshift(prevOperation[j]);
+                        //             }
+                        //         }
+                        //         result.splice(0, 1);
+                        //         let number1 = number1Arr.join("");
+                        //         let number2 = number2Arr.join("");
+                        //         let oper = operator[0].replace("*", "x");
+                        //         displayValue = `${number1} ${oper} ${number2}`;
+                        //         displayDiv.textContent = "";
+                        //         resultDiv.textContent = `${displayValue}`;
+
+                        //     } else if (prevOperation.includes("/")) {
+                        //         let index1 = prevOperation.indexOf("/");
+                        //         for (let i = 0; i < index1; i++) {
+                        //             if (prevOperation[i] !== " ") {
+                        //                 number1Arr.push(prevOperation[i]);
+                        //             }
+                        //         }
+                        //         let index2 = prevOperation.indexOf("=");
+                        //         for (let j = index2-1; j > index1; j--) {
+                        //             if (prevOperation[j] !== " ") {
+                        //                 number2Arr.unshift(prevOperation[j]);
+                        //             }
+                        //         }
+                        //         result.splice(0, 1);
+                        //         let number1 = number1Arr.join("");
+                        //         let number2 = number2Arr.join("");
+                        //         let oper = operator[0];
+                        //         displayValue = `${number1} ${oper} ${number2}`;
+                        //         displayDiv.textContent = "";
+                        //         resultDiv.textContent = `${displayValue}`;
+                        //     }
+                        // }
+                    // } else {
