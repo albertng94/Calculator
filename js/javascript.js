@@ -16,35 +16,10 @@ const resultDiv = document.getElementById("result");
 execute();
 
 
-console.log(number1Arr);
-console.log(operator);
-console.log(number2Arr);
-console.log(displayValue);
-console.log(result);
-console.log(resultsArr);
-console.log(resultsArrToDisp);
-
-
 //Function execute is called whenever the calculator buttons are clicked by the user. The result will vary according to the pressed button.
 function execute() {
     buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-            // if (button.id === ".") {
-            //     if (number2Arr[0]) {
-            //         if (number2Arr.includes(".")){
-            //             break;
-            //         }
-            //     }
-
-            //     else if (number1Arr[0]) {
-            //         if (number1Arr.includes(".")) {
-
-            //         }
-            //     }
-            // }
-            
-            // else 
-            
+        button.addEventListener("click", () => {           
             if (button.id === "ac") {
                 number1Arr.splice(0, number1Arr.length);
                 number2Arr.splice(0 ,number2Arr.length);
@@ -58,16 +33,25 @@ function execute() {
 
             else if (button.id === "erase") {
                 if (number2Arr[0]) {
-                    number2Arr.splice(-1, 1);
-                    let number1 = number1Arr.join("");
-                    let number2 = number2Arr.join("");
-                    let oper = operator[0] === "*" ? "x" : operator[0]
-                    number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
-                    number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
-                    displayValue = `${number1} ${oper} ${number2}`;
-                    resultDiv.textContent = `${displayValue}`;
-                    displayValue = `${number1} ${oper} ${number2}`;
-                    resultDiv.textContent = `${displayValue}`;
+                    if (result[0]) {
+                        number2Arr.splice(-1, 1);
+                        let number1 = resultsArrToDisp[resultsArrToDisp.length-1];
+                        let number2 = number2Arr.join("");
+                        let oper = operator[0] === "*" ? "x" : operator[0]
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                        displayValue = `${number1} ${oper} ${number2}`;
+                        resultDiv.textContent = `${displayValue}`;
+                    } else {
+                        number2Arr.splice(-1, 1);
+                        let number1 = number1Arr.join("");
+                        let number2 = number2Arr.join("");
+                        let oper = operator[0] === "*" ? "x" : operator[0]
+                        number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                        number2 = number2.includes(".") ? number2.replace(".", ",") : number2;
+                        displayValue = `${number1} ${oper} ${number2}`;
+                        resultDiv.textContent = `${displayValue}`;
+                    }
                 } 
                 
                 else if (operator[0]) {
@@ -107,6 +91,7 @@ function execute() {
             else if (button.id === "=" && number2Arr[0]) {
                 if (result[0]) {
                     let number1 = resultsArr[resultsArr.length-1];
+                    let number1ToDisp = resultsArrToDisp[resultsArrToDisp-1];
                     let number2 = number2Arr.join("");
                     let oper = operator[0];
                     result.splice(0, result.length);
@@ -120,13 +105,12 @@ function execute() {
                         resultsArr.splice(0, resultsArr.length);
                         result.splice(0, result.length);
                     } else {
-                        displayValue = `${number1} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
+                        displayValue = `${number1ToDisp} ${oper} ${number2} = ${resultsArrToDisp[resultsArrToDisp.length-1]}`; 
                         displayDiv.textContent = `${displayValue}`;
                         resultDiv.textContent = `${resultsArrToDisp[resultsArrToDisp.length-1]}`;
                     }
                     number1Arr.splice(0, number1Arr.length);  
                     number2Arr.splice(0, number2Arr.length);
-                    console.log(displayDiv.value);
 
                 } else {
                     let number1 = number1Arr.join("");
@@ -498,10 +482,6 @@ function operate(num1, num2, op) {
             }
         }
     }
-    console.log(resultsArrToDisp[resultsArrToDisp.length-1]);
-    console.log(resultsArr[resultsArr.length-1]);
-    console.log(result[result.length-1]);
-    console.log(solution);
 }
 
 
