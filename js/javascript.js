@@ -12,6 +12,10 @@ const buttons = document.querySelectorAll("button");
 const displayDiv = document.getElementById("calculation");
 const resultDiv = document.getElementById("result");
 
+const audio1 = () => new Audio("./audio/click1.mp3").play();
+const audio2 = () => new Audio("./audio/click2.wav").play();
+const audio3 = () => new Audio("./audio/click3.wav").play();
+
 
 execute();
 

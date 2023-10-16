@@ -1,7 +1,3 @@
-* {
-    /*outline: solid 1px red;*/
-}
-
 html {
     height: 100vh;
     width: 100%;
@@ -9,7 +5,7 @@ html {
     justify-content: center;
     font-family: 'Poppins', sans-serif;
     font-size: 1em;
-    background-color: wheat;
+    background-color: rgb(250, 232, 199);
 }
 
 h1 {
@@ -20,6 +16,8 @@ h1 {
 h2 {
     font-size: 1.5rem;
     text-align: center;
+    color: rgb(87, 85, 85);
+    font-style: italic;
 }
 
 .calculator-main-div {
