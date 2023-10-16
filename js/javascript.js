@@ -89,9 +89,13 @@ function execute() {
 
             //If "=" button is clicked and number2Arr has a value, execute "operate" taking into account the values accumulated in arrays numberArr1, operator, and numberArr2. Push the whole operation to the displayDiv and the result to the resultDIv
             else if (button.id === "=" && number2Arr[0]) {
-                if (result[0]) {
+                if (number2Arr[0] === "-" && !number2Arr[1]) {
+                    resultDiv.textContent = "Error: invalid number.";
+                }
+                
+                else if (result[0]) {
                     let number1 = resultsArr[resultsArr.length-1];
-                    let number1ToDisp = resultsArrToDisp[resultsArrToDisp-1];
+                    let number1ToDisp = resultsArrToDisp[resultsArrToDisp.length-1];
                     let number2 = number2Arr.join("");
                     let oper = operator[0];
                     result.splice(0, result.length);
@@ -144,7 +148,11 @@ function execute() {
             //Else if number1Arr has content, display number1 + operator.
             //Else (whenever an operator is clicked without any number being clicked previously nor any result calculated and stored), display error message: "Please, input a number first.".
             else if (button.classList.contains("operator")) {
-                if (result[0]) {
+                if ((number1Arr[0] === "-" && !number1Arr[1]) || (number2Arr[0] === "-" && !number2Arr[1])) {
+                    resultDiv.textContent = "Error: invalid number.";
+                }
+                
+                else if (result[0]) {
                     if (number2Arr[0]) {
                         let number1 = resultsArr[resultsArr.length-1];
                         let number2 = number2Arr.join("");
@@ -355,12 +363,20 @@ function execute() {
                                     result.splice(0, 1);
                                 }
                             } else {
-                                number1Arr.push(button.id);
-                                let number1 = number1Arr.join("");
-                                number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
-                                displayValue = `${number1}`;
-                                resultDiv.textContent = `${displayValue}`;
-                                result.splice(0, 1);
+                                if (button.id === "negative") {
+                                    number1Arr.push("-");
+                                    let number1 = number1Arr.join("");
+                                    displayValue = `${number1}`;
+                                    resultDiv.textContent = `${displayValue}`;
+                                    result.splice(0, 1);
+                                } else {
+                                    number1Arr.push(button.id);
+                                    let number1 = number1Arr.join("");
+                                    number1 = number1.includes(".") ? number1.replace(".", ",") : number1;
+                                    displayValue = `${number1}`;
+                                    resultDiv.textContent = `${displayValue}`;
+                                    result.splice(0, 1);
+                                }
                             }
                         }
                     } else {
@@ -509,8 +525,8 @@ function divide(...args) {
 }
 
 
-
-
+//bugs to fix:
+// Es posible utilizar minimize solo (sin estar acompañado por números) y hacer operaciones con este, dando lugar a error.
 
 // In case erase function would go ack to previous results and operations, this code would be a starter (located inside erase (operate[0] condition)):
 
